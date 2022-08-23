@@ -2,6 +2,8 @@
 import yfinance as yf
 from scipy.stats import zscore
 import pandas as pd
+import numpy as np
+
 
 nasdq = yf.Ticker("NDX").history(period="1y", interval="1d", actions=False)
 sp = yf.Ticker("^GSPC").history(period="1y", interval="1d", action=False)
@@ -18,7 +20,7 @@ plt.show()
 #%%
 
 nasdq_sig = zscore(nasdq["Close"])
-sp_sig = zscore(sp["Close"])[:-1]
+sp_sig = zscore(sp["Close"])
 
 plt.plot(nasdq_sig, sp_sig)
 
@@ -43,8 +45,9 @@ for key in sectors:
     timeseries[key] = yf.Ticker(key).history(period="1y", interval="1d", actions=False)[
         "Close"
     ]
-
 #%%
-import numpy as np
 
 design_matrix = np.array([timeseries[key] for key in sectors])
+
+
+#%%
