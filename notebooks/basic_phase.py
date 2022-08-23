@@ -46,8 +46,13 @@ for key in sectors:
         "Close"
     ]
 #%%
-
 design_matrix = np.array([timeseries[key] for key in sectors])
 
+
+#%%
+nas_dif = np.diff(nasdq_sig)
+sp_dif = np.diff(sp_sig)
+
+plt.plot(nas_dif, sp_dif)
 
 #%%
